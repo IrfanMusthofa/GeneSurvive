@@ -35,6 +35,13 @@ export default function HomePredictionBox() {
     }
   };
 
+  const handleDownloadSample = () => {
+    const link = document.createElement("a");
+    link.href = "/input_samples.csv";
+    link.download = "input_samples.csv";
+    link.click();
+  };
+
   const renderInterpretation = (prediction: number, prob: number[]) => {
     const confidence = (Math.max(...prob) * 100).toFixed(2) + "%";
     let message = "";
@@ -70,13 +77,22 @@ export default function HomePredictionBox() {
         className="w-full text-sm bg-gray-50 border-2 border-pink-400 rounded px-4 py-2 mb-4"
       />
 
-      <button
-        onClick={handleUpload}
-        disabled={loading}
-        className="w-full px-6 py-2 bg-pink-400 text-white rounded hover:bg-pink-600"
-      >
-        {loading ? "Memproses..." : "Unggah & Prediksi"}
-      </button>
+      <div className="flex flex-col justify-between gap-4">
+        <button
+          onClick={handleUpload}
+          disabled={loading}
+          className="w-full px-6 py-2 bg-pink-400 text-white rounded hover:bg-pink-600"
+        >
+          {loading ? "Memproses..." : "Unggah & Prediksi"}
+        </button>
+
+        <button
+          onClick={handleDownloadSample}
+          className="w-full px-6 py-2 bg-gray-200 text-pink-600 border border-pink-400 rounded hover:bg-gray-300"
+        >
+          Unduh Contoh CSV
+        </button>
+      </div>
 
       {result && (
         <div className="mt-6 max-h-128 overflow-y-auto pr-2">
